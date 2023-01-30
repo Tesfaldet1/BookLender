@@ -3,6 +3,7 @@ package se.lexickon.booklender.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import se.lexickon.booklender.exception.DataDuplicateException;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,4 +27,19 @@ public class Author {
    )
 
     private List<Book> writtenBooks = new ArrayList<>();
+
+    public  void addBook(Book book){
+        if(writtenBooks.contains(book)){
+            throw  new DataDuplicateException("The the book data was duplicated");
+        }
+        writtenBooks.add(book);
+    }
+
+    public  void removeBook(Book book){
+        if(writtenBooks.contains(book)){
+            throw  new DataDuplicateException("The the book data was duplicated");
+        }
+        writtenBooks.remove(book);
+    }
+
 }
