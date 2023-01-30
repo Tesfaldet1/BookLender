@@ -13,24 +13,17 @@ import java.util.List;
 @Data // Getter and Setter, EqualsAndHashCode and RequiredArgConstructor
 
 @Entity
-public class Book {
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String isbn;
-    private String title;
-    private int maxLoanDays;
+    private String name;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "books_authors",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
-    )
-    private List<Author> authors = new ArrayList<>();
+   @JoinTable(name = "books_authors",
+   joinColumns = @JoinColumn(name = "author_id"),
+           inverseJoinColumns = @JoinColumn(name = "book_id")
+   )
 
-    public Book(String isbn, String title, int maxLoanDays) {
-        this.isbn = isbn;
-        this.title = title;
-        this.maxLoanDays = maxLoanDays;
-    }
+    private List<Book> writtenBooks = new ArrayList<>();
 }
